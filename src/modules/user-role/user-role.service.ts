@@ -7,6 +7,7 @@ export class UserRoleService {
   constructor(private prisma: PrismaService) { } // eslint-disable-line
 
   async createUserRole(data: Prisma.UserRoleCreateInput): Promise<UserRole> {
+    console.log(data);
     return this.prisma.userRole.create({ data });
   }
 }

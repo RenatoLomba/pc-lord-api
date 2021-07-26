@@ -19,14 +19,15 @@ model User {
   CREATED_AT DateTime   @default(now())
   UPDATED_AT DateTime   @updatedAt
   USER_ROLE  UserRole[]
+  PASSWORD   String
 }
 
 model UserRole {
   ID         String   @id @default(uuid())
-  USER       User     @relation(fields: [USER_ID], references: [ID])
-  USER_ID    String
-  ROLE       Role     @relation(fields: [ROLE_ID], references: [ID])
-  ROLE_ID    String
+  USER       User?    @relation(fields: [USER_ID], references: [ID])
+  USER_ID    String?
+  ROLE       Role?    @relation(fields: [ROLE_ID], references: [ID])
+  ROLE_ID    String?
   CREATED_AT DateTime @default(now())
   UPDATED_AT DateTime @updatedAt
 }

@@ -1,0 +1,59 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RoleEntity {
+  ID: ID!
+  NAME: String!
+  CREATED_AT: DateTime!
+  UPDATED_AT: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserRoleEntity {
+  ID: ID!
+  ROLE: RoleEntity
+  USER_ID: String!
+  ROLE_ID: String!
+  CREATED_AT: String!
+  UPDATED_AT: String!
+}
+
+type UserEntity {
+  ID: ID!
+  USER_ROLE: [UserRoleEntity!]
+  EMAIL: String!
+  FIRST_NAME: String!
+  LAST_NAME: String!
+  DT_BIRTH: DateTime!
+  CREATED_AT: DateTime!
+  UPDATED_AT: DateTime!
+}
+
+type AuthType {
+  user: UserEntity!
+  token: String!
+}
+
+type Query {
+  users: [UserEntity!]!
+  user(query: QueryUserInput!): UserEntity!
+}
+
+input QueryUserInput {
+  EMAIL: String
+  ID: String
+}
+
+type Mutation {
+  login(data: AuthInput!): AuthType!
+}
+
+input AuthInput {
+  EMAIL: String!
+  PASSWORD: String!
+}
