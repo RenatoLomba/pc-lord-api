@@ -50,8 +50,18 @@ input QueryUserInput {
 }
 
 type Mutation {
+  updateLoggedUser(data: UpdateUserInput!): UserEntity!
+  deleteLoggedUser: UserEntity!
   login(data: AuthInput!): AuthType!
   signUp(data: CreateUserInput!): AuthType!
+}
+
+input UpdateUserInput {
+  EMAIL: String
+  FIRST_NAME: String
+  LAST_NAME: String
+  DT_BIRTH: DateTime
+  PASSWORD: String
 }
 
 input AuthInput {

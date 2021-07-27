@@ -3,6 +3,8 @@ import { Prisma, User } from '@prisma/client';
 import { HashPasswordTransformer } from 'src/common/helpers/crypto';
 import { PrismaService } from '../prisma/prisma.service';
 
+const include = { USER_ROLE: { include: { ROLE: true } } };
+
 @Injectable()
 export class UserService {
   constructor(
@@ -15,7 +17,7 @@ export class UserService {
   ): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: userWhereUniqueInput,
-      include: { USER_ROLE: { include: { ROLE: true } } },
+      include,
     });
 
     if (!user) throw new NotFoundException('User not found');
@@ -37,15 +39,33 @@ export class UserService {
       skip,
       take,
       where,
-      include: { USER_ROLE: { include: { ROLE: true } } },
+      include,
     });
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
     data.PASSWORD = this.hasher.to(data.PASSWORD);
-    return this.prisma.user.create({
-      data,
-      include: { USER_ROLE: { include: { ROLE: true } } },
-    });
+    return this.prisma.user.create({ data, include });
+  }
+
+  async updateUser(params: {
+    where: Prisma.UserWhereUniqueInput;
+    data: Prisma.UserUpdateInput;
+  }): Promise<User> {
+    const { data, where } = params;
+
+    if (
+      data.PASSWORD &&
+      typeof data.PASSWORD === 'string' &&
+      data.PASSWORD.length > 0
+    ) {
+      data.PASSWORD = this.hasher.to(data.PASSWORD);
+    }
+
+    return this.prisma.user.update({ data, where, include });
+  }
+
+  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+    return this.prisma.user.delete({ where, include });
   }
 }
