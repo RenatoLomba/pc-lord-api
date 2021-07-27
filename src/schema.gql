@@ -51,9 +51,18 @@ input QueryUserInput {
 
 type Mutation {
   login(data: AuthInput!): AuthType!
+  signUp(data: CreateUserInput!): AuthType!
 }
 
 input AuthInput {
   EMAIL: String!
+  PASSWORD: String!
+}
+
+input CreateUserInput {
+  EMAIL: String!
+  FIRST_NAME: String!
+  LAST_NAME: String!
+  DT_BIRTH: DateTime!
   PASSWORD: String!
 }

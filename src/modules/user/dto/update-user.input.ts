@@ -1,6 +1,6 @@
 import { InputType } from '@nestjs/graphql';
 import {
-  IsDateString,
+  IsDate,
   IsEmail,
   IsNotEmpty,
   IsOptional,
@@ -29,10 +29,10 @@ export class UpdateUserInput {
   @IsOptional()
   LAST_NAME?: string;
 
-  @IsDateString({}, { message: 'Campo "Dt_Birth" deve ser to tipo data' })
+  @IsDate({ message: 'Campo "Dt_Birth" deve ser to tipo data' })
   @IsNotEmpty({ message: 'Campo "Dt_Birth" é obrigatório' })
   @IsOptional()
-  DT_BIRTH?: Date | string;
+  DT_BIRTH?: Date;
 
   @IsString({ message: 'Campo "Password" deve ser do tipo texto' })
   @IsNotEmpty({ message: 'Campo "Password" é obrigatório' })
