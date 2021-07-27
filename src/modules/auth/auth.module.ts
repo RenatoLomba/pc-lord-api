@@ -6,6 +6,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
+import { JwtAdminStrategy } from './jwt-admin.strategy';
+import { JwtUserStrategy } from './jwt-user.strategy';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { AuthService } from './auth.service';
     UserService,
     PrismaService,
     HashPasswordTransformer,
+    JwtUserStrategy,
+    JwtAdminStrategy,
   ],
 })
 export class AuthModule { } // eslint-disable-line
