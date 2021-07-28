@@ -3,7 +3,7 @@ import { Prisma, User } from '@prisma/client';
 import { HashPasswordTransformer } from 'src/common/helpers/crypto';
 import { PrismaService } from '../prisma/prisma.service';
 
-const include = { USER_ROLE: { include: { ROLE: true } } };
+const include = { USER_ROLE: { include: { ROLE: true } }, ADDRESS: true };
 
 @Injectable()
 export class UserService {
@@ -45,7 +45,10 @@ export class UserService {
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
     data.PASSWORD = this.hasher.to(data.PASSWORD);
-    return this.prisma.user.create({ data, include });
+    return this.prisma.user.create({
+      data,
+      include,
+    });
   }
 
   async updateUser(params: {

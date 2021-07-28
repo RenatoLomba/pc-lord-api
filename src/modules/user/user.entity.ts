@@ -1,4 +1,5 @@
 import { Field, HideField, ID, ObjectType } from '@nestjs/graphql';
+import { AddressEntity as Address } from '../address/address.entity';
 import { UserRoleEntity as UserRole } from '../user-role/user-role.entity';
 
 @ObjectType()
@@ -23,4 +24,7 @@ export class UserEntity {
 
   @Field(() => [UserRole])
   USER_ROLE?: UserRole[];
+
+  @Field(() => [Address])
+  ADDRESS?: Address;
 }

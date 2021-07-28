@@ -20,6 +20,7 @@ model User {
   UPDATED_AT DateTime   @updatedAt
   USER_ROLE  UserRole[]
   PASSWORD   String
+  ADDRESS    Address[]
 }
 
 model UserRole {
@@ -38,4 +39,19 @@ model Role {
   CREATED_AT DateTime   @default(now())
   UPDATED_AT DateTime   @updatedAt
   USER_ROLE  UserRole[]
+}
+
+model Address {
+  ID         String   @id @default(uuid())
+  USER_ID    String?
+  USER       User?    @relation(fields: [USER_ID], references: [ID])
+  STREET     String
+  NUMBER     String
+  DISTRICT   String
+  CITY       String
+  STATE      String
+  CEP        String
+  COMPLEMENT String?
+  CREATED_AT DateTime @default(now())
+  UPDATED_AT DateTime @updatedAt
 }

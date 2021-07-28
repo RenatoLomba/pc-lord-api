@@ -23,9 +23,24 @@ type UserRoleEntity {
   UPDATED_AT: String!
 }
 
+type AddressEntity {
+  ID: ID!
+  USER_ID: String
+  STREET: String!
+  NUMBER: String!
+  DISTRICT: String!
+  CITY: String!
+  STATE: String!
+  CEP: String!
+  COMPLEMENT: String
+  CREATED_AT: DateTime!
+  UPDATED_AT: DateTime!
+}
+
 type UserEntity {
   ID: ID!
   USER_ROLE: [UserRoleEntity!]
+  ADDRESS: [AddressEntity!]
   EMAIL: String!
   FIRST_NAME: String!
   LAST_NAME: String!
@@ -42,6 +57,8 @@ type AuthType {
 type Query {
   users: [UserEntity!]!
   user(query: QueryUserInput!): UserEntity!
+  userLoggedAddress(ID: String!): AddressEntity!
+  userLoggedAddresses: [AddressEntity!]!
 }
 
 input QueryUserInput {
@@ -54,6 +71,9 @@ type Mutation {
   deleteLoggedUser: UserEntity!
   login(data: AuthInput!): AuthType!
   signUp(data: CreateUserInput!): AuthType!
+  createUserLoggedAddress(data: CreateAddressInput!): AddressEntity!
+  updateLoggedUserAddress(data: UpdateAddressInput!, ID: String!): AddressEntity!
+  deleteLoggedUserAddress(ID: String!): AddressEntity!
 }
 
 input UpdateUserInput {
@@ -75,4 +95,24 @@ input CreateUserInput {
   LAST_NAME: String!
   DT_BIRTH: DateTime!
   PASSWORD: String!
+}
+
+input CreateAddressInput {
+  STREET: String!
+  NUMBER: String!
+  DISTRICT: String!
+  CITY: String!
+  STATE: String!
+  CEP: String!
+  COMPLEMENT: String
+}
+
+input UpdateAddressInput {
+  STREET: String
+  NUMBER: String
+  DISTRICT: String
+  CITY: String
+  STATE: String
+  CEP: String
+  COMPLEMENT: String
 }
