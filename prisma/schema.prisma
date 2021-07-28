@@ -55,3 +55,10 @@ model Address {
   CREATED_AT DateTime @default(now())
   UPDATED_AT DateTime @updatedAt
 }
+
+model Category {
+  ID         String   @id @default(uuid())
+  NAME       String   @unique
+  CREATED_AT DateTime @default(now())
+  UPDATED_AT DateTime @updatedAt
+}

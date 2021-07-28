@@ -8,6 +8,7 @@ import { UserModule } from '../user/user.module';
 import { join } from 'path';
 import { AuthModule } from '../auth/auth.module';
 import { AddressModule } from '../address/address.module';
+import { CategoryModule } from '../category/category.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AddressModule } from '../address/address.module';
     UserRoleModule,
     AuthModule,
     AddressModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -54,11 +54,19 @@ type AuthType {
   token: String!
 }
 
+type CategoryEntity {
+  ID: ID!
+  NAME: String!
+  CREATED_AT: DateTime!
+  UPDATED_AT: DateTime!
+}
+
 type Query {
   users: [UserEntity!]!
   user(query: QueryUserInput!): UserEntity!
   userLoggedAddress(ID: String!): AddressEntity!
   userLoggedAddresses: [AddressEntity!]!
+  categories: [CategoryEntity!]!
 }
 
 input QueryUserInput {
