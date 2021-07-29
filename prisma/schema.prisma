@@ -62,3 +62,10 @@ model Category {
   CREATED_AT DateTime @default(now())
   UPDATED_AT DateTime @updatedAt
 }
+
+model Brand {
+  ID         String   @id @default(uuid())
+  NAME       String   @unique
+  CREATED_AT DateTime @default(now())
+  UPDATED_AT DateTime @updatedAt
+}

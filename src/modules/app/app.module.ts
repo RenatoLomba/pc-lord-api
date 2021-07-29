@@ -9,6 +9,7 @@ import { join } from 'path';
 import { AuthModule } from '../auth/auth.module';
 import { AddressModule } from '../address/address.module';
 import { CategoryModule } from '../category/category.module';
+import { BrandModule } from '../brand/brand.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CategoryModule } from '../category/category.module';
     AuthModule,
     AddressModule,
     CategoryModule,
+    BrandModule,
   ],
   controllers: [AppController],
   providers: [AppService],
