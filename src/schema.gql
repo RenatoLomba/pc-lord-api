@@ -68,6 +68,20 @@ type BrandEntity {
   UPDATED_AT: DateTime!
 }
 
+type ProductEntity {
+  ID: ID!
+  CATEGORY: CategoryEntity
+  BRAND: BrandEntity
+  NAME: String!
+  DESCRIPTION: String!
+  PRICE: Float!
+  QT_STOCK: Float!
+  CATEGORY_ID: String
+  BRAND_ID: String
+  CREATED_AT: DateTime!
+  UPDATED_AT: DateTime!
+}
+
 type Query {
   users: [UserEntity!]!
   user(query: QueryUserInput!): UserEntity!
@@ -75,6 +89,7 @@ type Query {
   userLoggedAddresses: [AddressEntity!]!
   categories: [CategoryEntity!]!
   brands: [BrandEntity!]!
+  products: [ProductEntity!]!
 }
 
 input QueryUserInput {

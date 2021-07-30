@@ -57,15 +57,31 @@ model Address {
 }
 
 model Category {
-  ID         String   @id @default(uuid())
-  NAME       String   @unique
-  CREATED_AT DateTime @default(now())
-  UPDATED_AT DateTime @updatedAt
+  ID         String    @id @default(uuid())
+  NAME       String    @unique
+  CREATED_AT DateTime  @default(now())
+  UPDATED_AT DateTime  @updatedAt
+  PRODUCTS   Product[]
 }
 
 model Brand {
-  ID         String   @id @default(uuid())
-  NAME       String   @unique
-  CREATED_AT DateTime @default(now())
-  UPDATED_AT DateTime @updatedAt
+  ID         String    @id @default(uuid())
+  NAME       String    @unique
+  CREATED_AT DateTime  @default(now())
+  UPDATED_AT DateTime  @updatedAt
+  PRODUCTS   Product[]
+}
+
+model Product {
+  ID          String    @id @default(uuid())
+  NAME        String
+  DESCRIPTION String
+  PRICE       Float
+  QT_STOCK    Int
+  CATEGORY    Category? @relation(fields: [CATEGORY_ID], references: [ID])
+  CATEGORY_ID String?
+  BRAND       Brand?    @relation(fields: [BRAND_ID], references: [ID])
+  BRAND_ID    String?
+  CREATED_AT  DateTime  @default(now())
+  UPDATED_AT  DateTime  @updatedAt
 }

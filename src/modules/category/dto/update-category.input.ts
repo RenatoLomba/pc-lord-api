@@ -1,10 +1,5 @@
-import { InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { InputType, PartialType } from '@nestjs/graphql';
+import { CreateCategoryInput } from './create-category.input';
 
 @InputType()
-export class UpdateCategoryInput {
-  @IsString({ message: 'Campo "Nome" deve ser do tipo string' })
-  @IsNotEmpty({ message: 'Campo "Nome" é obrigatório' })
-  @IsOptional()
-  NAME?: string;
-}
+export class UpdateCategoryInput extends PartialType(CreateCategoryInput) { } // eslint-disable-line
