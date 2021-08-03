@@ -82,6 +82,19 @@ type ProductEntity {
   UPDATED_AT: DateTime!
 }
 
+type TestimonialEntity {
+  ID: ID!
+  PRODUCT: ProductEntity
+  USER: UserEntity
+  TITLE: String
+  DESCRIPTION: String
+  RATING: Float!
+  PRODUCT_ID: String
+  USER_ID: String
+  CREATED_AT: DateTime!
+  UPDATED_AT: DateTime!
+}
+
 type Query {
   users: [UserEntity!]!
   user(query: QueryUserInput!): UserEntity!
@@ -90,6 +103,8 @@ type Query {
   categories: [CategoryEntity!]!
   brands: [BrandEntity!]!
   products: [ProductEntity!]!
+  testimonialsByProduct(product_id: String!): [TestimonialEntity!]!
+  userLoggedTestimonials: [TestimonialEntity!]!
 }
 
 input QueryUserInput {
@@ -105,6 +120,9 @@ type Mutation {
   createUserLoggedAddress(data: CreateAddressInput!): AddressEntity!
   updateLoggedUserAddress(data: UpdateAddressInput!, ID: String!): AddressEntity!
   deleteLoggedUserAddress(ID: String!): AddressEntity!
+  createTestimonial(data: CreateTestimonialInput!): TestimonialEntity!
+  updateTestimonial(data: UpdateTestimonialInput!, id: String!): TestimonialEntity!
+  deleteTestimonial(id: String!): TestimonialEntity!
 }
 
 input UpdateUserInput {
@@ -146,4 +164,18 @@ input UpdateAddressInput {
   STATE: String
   CEP: String
   COMPLEMENT: String
+}
+
+input CreateTestimonialInput {
+  RATING: Float!
+  TITLE: String
+  DESCRIPTION: String
+  PRODUCT_ID: String!
+}
+
+input UpdateTestimonialInput {
+  RATING: Float
+  TITLE: String
+  DESCRIPTION: String
+  PRODUCT_ID: String
 }

@@ -3,8 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Environment } from 'src/common/constants/environment';
 import { UserService } from '../user/user.service';
-import { Role, User, UserRole } from '@prisma/client';
+import { User } from '@prisma/client';
 import { Cons } from 'src/common/constants/cons';
+import { UserLoggedIn } from 'src/common/types/user-logged-in.type';
 
 @Injectable()
 export class JwtAdminStrategy extends PassportStrategy(
@@ -20,11 +21,7 @@ export class JwtAdminStrategy extends PassportStrategy(
   }
 
   async validate({ sub }: { sub: User['ID']; username: string }) {
-    const user = (await this.userService.findUser({ ID: sub })) as User & {
-      USER_ROLE: (UserRole & {
-        ROLE: Role;
-      })[];
-    };
+    const user = (await this.userService.findUser({ ID: sub })) as UserLoggedIn;
 
     if (!user) throw new UnauthorizedException('Usuário não autenticado');
 

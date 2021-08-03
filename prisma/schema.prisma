@@ -11,16 +11,17 @@ generator client {
 }
 
 model User {
-  ID         String     @id @default(uuid())
-  EMAIL      String     @unique
-  FIRST_NAME String
-  LAST_NAME  String
-  DT_BIRTH   DateTime
-  CREATED_AT DateTime   @default(now())
-  UPDATED_AT DateTime   @updatedAt
-  USER_ROLE  UserRole[]
-  PASSWORD   String
-  ADDRESS    Address[]
+  ID          String        @id @default(uuid())
+  EMAIL       String        @unique
+  FIRST_NAME  String
+  LAST_NAME   String
+  DT_BIRTH    DateTime
+  CREATED_AT  DateTime      @default(now())
+  UPDATED_AT  DateTime      @updatedAt
+  USER_ROLE   UserRole[]
+  PASSWORD    String
+  ADDRESS     Address[]
+  TESTIMONIAL Testimonial[]
 }
 
 model UserRole {
@@ -73,15 +74,31 @@ model Brand {
 }
 
 model Product {
-  ID          String    @id @default(uuid())
+  ID          String        @id @default(uuid())
   NAME        String
   DESCRIPTION String
   PRICE       Float
   QT_STOCK    Int
-  CATEGORY    Category? @relation(fields: [CATEGORY_ID], references: [ID])
+  RATING      Float         @default(0)
+  NUM_VIEWS   Int           @default(0)
+  CATEGORY    Category?     @relation(fields: [CATEGORY_ID], references: [ID])
   CATEGORY_ID String?
-  BRAND       Brand?    @relation(fields: [BRAND_ID], references: [ID])
+  BRAND       Brand?        @relation(fields: [BRAND_ID], references: [ID])
   BRAND_ID    String?
-  CREATED_AT  DateTime  @default(now())
-  UPDATED_AT  DateTime  @updatedAt
+  CREATED_AT  DateTime      @default(now())
+  UPDATED_AT  DateTime      @updatedAt
+  TESTIMONIAL Testimonial[]
+}
+
+model Testimonial {
+  ID          String   @id @default(uuid())
+  RATING      Float    @default(0)
+  TITLE       String?
+  DESCRIPTION String?
+  PRODUCT_ID  String?
+  PRODUCT     Product? @relation(fields: [PRODUCT_ID], references: [ID])
+  USER_ID     String?
+  USER        User?    @relation(fields: [USER_ID], references: [ID])
+  CREATED_AT  DateTime @default(now())
+  UPDATED_AT  DateTime @updatedAt
 }

@@ -38,11 +38,22 @@ export class ProductService {
     where: Prisma.ProductWhereUniqueInput,
     data: Prisma.ProductUpdateInput,
   ): Promise<Product> {
-    await this.findUnique({ ID: where.ID });
+    const product = await this.findUnique({ ID: where.ID });
 
-    return this.prisma.product.update({ data, where, include }).catch((ex) => {
-      throw new InternalServerErrorException(ex.message);
-    });
+    return this.prisma.product
+      .update({
+        data: {
+          ...data,
+          NUM_VIEWS: data.NUM_VIEWS
+            ? product.NUM_VIEWS + Number(data.NUM_VIEWS)
+            : product.NUM_VIEWS,
+        },
+        where,
+        include,
+      })
+      .catch((ex) => {
+        throw new InternalServerErrorException(ex.message);
+      });
   }
 
   async delete(where: Prisma.ProductWhereUniqueInput): Promise<Product> {
